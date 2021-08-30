@@ -35,7 +35,6 @@ npm test
 
 - Implement CRUD operations for colors. A color should have a name and the color value.
 - Add standard behavior one can expect of a RESTful API.
-- Use Sqlite for persistence.
 - Make simple, elegant software.
 - Provide production-ready code quality.
 

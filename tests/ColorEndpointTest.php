@@ -10,18 +10,12 @@ use Sunrise\Uri\Uri;
 final class ColorEndpointTest extends TestCase
 {
     private const ENDPOINT = '/color';
-    private const DATABASE_FILE_NAME = 'frontify-color-api-database.db';
 
     private $endpoint;
 
     protected function setUp(): void
     {
         $this->endpoint = new ColorEndpoint();
-    }
-
-    protected function tearDown(): void
-    {
-        unlink(sys_get_temp_dir() . '/' . self::DATABASE_FILE_NAME);
     }
 
     public function testGetWithNoData(): void
@@ -34,5 +28,4 @@ final class ColorEndpointTest extends TestCase
 
         self::assertEquals([], $this->endpoint->handle($request->reveal()));
     }
-
 }
