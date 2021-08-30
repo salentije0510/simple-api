@@ -9,6 +9,8 @@ good_ after all.
 
 ## Installation, Test & Execution
 
+**Requirements:** PHP 7.3+, node.js (optional, format the code manually if you can't use Prettier).
+
 We use [http-server-request](https://github.com/sunrise-php/http-server-request) to abstract PHP's `$_SERVER`
 and `$_REQUEST` superglobals, [Prettier for PHP](https://github.com/prettier/plugin-php) for code-formatting
 and [PHPUnit](https://phpunit.de/) for testing:
