@@ -13,6 +13,7 @@
     }
   },
   "require": {
-    "sunrise/http-server-request": "^1.1"
+    "sunrise/http-server-request": "^1.1",
+    "ext-json": "*"
   }
 }
