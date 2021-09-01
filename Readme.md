@@ -2,10 +2,11 @@
 
 Hello there! 👋
 
-The intention of this little api server is **creating, reading, updating and deleting colors**. Most of it is missing
-still. Show us your coding style and how well and proper you can engineer solutions for even simple problems. Do it as
-well as you would expect for a code review by yourself. Don't spend too much time though – _perfect is the enemy of
-good_ after all.
+The goal of this task is to create a simple RESTful API for **CRUD (creating, reading, updating and deleting)** 
+operations on the Color entity. This project already contains VCS and minimal skeleton for the implementation. Develop 
+on top of the existing boilerplate and history. The idea is to show us your coding style and how well and proper you can
+engineer solutions, even for simple problems. Do it as well as you would expect for a code review by yourself. Don't 
+spend too much time though – _perfect is the enemy of good_ after all.
 
 ## Installation, Test & Execution
 
@@ -33,15 +34,16 @@ npm test
 
 ## Your Task
 
-- Implement CRUD operations for colors. A color should have a name and the color value.
+- Implement CRUD operations for the Color entity. A Color should have a name and the hex color value.
 - Add standard behavior one can expect of a RESTful API.
-- Make simple, elegant software.
-- Provide production-ready code quality.
+- Feel free to use any RDBMS.
+- Make simple, elegant software that you can explain and elaborate well during the demonstration.
+- Provide production-ready code quality (everything what you would usually do, when you ship the code).
 
 ## Rules Of The Game
 
 - Don't use any further library or framework.
-- The code must be your own—no code generators or assistants allowed (e.g. GitHub Copilot).
+- You have to write your code — no code generators or assistants allowed (e.g. GitHub Copilot).
 - Feel free to change existing code (or fix existing problems) as you see fit.
-- Don't share the code publicly but just send it back to us.
+- Don't share the code publicly, just send it back to us.
 - **Enjoy!**
