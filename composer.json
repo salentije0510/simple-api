@@ -14,6 +14,7 @@
   },
   "require": {
     "sunrise/http-server-request": "^1.1",
-    "ext-json": "*"
+    "ext-json": "*",
+    "php": "^7.3"
   }
 }
