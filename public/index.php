@@ -2,14 +2,16 @@
 
 /* (c) Copyright Frontify Ltd., all rights reserved. */
 
-use Frontify\ColorApi\ColorEndpoint;
+use Frontify\ColorApi\Http\Routing\Router;
+use Frontify\ColorApi\Http\Routing\UrlMaker;
 use Sunrise\Http\ServerRequest\ServerRequestFactory;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+$routes = require_once __DIR__ . '/../routes/api/routes.php';
+
 $request = ServerRequestFactory::fromGlobals();
-$endpoint = new ColorEndpoint();
-
 header('Content-Type: application/json');
+$urlMaker = new UrlMaker($routes);
 
-echo json_encode($endpoint->handle($request), JSON_THROW_ON_ERROR);
+return (new Router($urlMaker, $routes))->run($request);
