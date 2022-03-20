@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace Frontify\ColorApi\Http\Routing;
 
 use ArrayObject;
-use Frontify\ColorApi\Http\Requests\RequestFactory;
+use Frontify\ColorApi\Factories\RepositoryFactory;
+use Frontify\ColorApi\Factories\RequestFactory;
 use Psr\Http\Message\ServerRequestInterface;
 
 class Router
@@ -69,7 +70,10 @@ class Router
             );
         }
 
-        $controller = new $controllerClass();
+        // For now simple and stupid. It can be improved by adding DI container to handle DI to controller class
+        $repository = RepositoryFactory::make($controllerClass);
+
+        $controller = new $controllerClass($repository);
 
         $request = RequestFactory::make($controllerClass, $methodName, $pathVariables, $request);
 

@@ -23,6 +23,8 @@ class GetColorsRequest extends BaseRequest
     {
         parent::__construct([]);
 
+        $this->filters = [];
+
         foreach ($parameters as $parameter => $value) {
             if (\array_key_exists($parameter, $this->allowedFilters)) {
                 $this->filters[$parameter] = $value;
@@ -37,7 +39,7 @@ class GetColorsRequest extends BaseRequest
 
     public function hasFilters(): bool
     {
-        return empty($this->filters);
+        return !empty($this->filters);
     }
 
     public function getFilter(string $filter): string

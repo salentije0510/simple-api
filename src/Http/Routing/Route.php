@@ -12,8 +12,6 @@ class Route
     public const HTTP_METHOD_POST = 'POST';
     public const HTTP_METHOD_PUT = 'PUT';
     public const HTTP_METHOD_DELETE = 'DELETE';
-    public const HTTP_METHOD_PATCH = 'PATCH';
-    public const HTTP_METHOD_HEAD = 'HEAD';
     public const HTTP_METHOD_OPTIONS = 'OPTIONS';
 
     /** @var array<string, mixed>  */

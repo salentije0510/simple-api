@@ -27,9 +27,4 @@ class BaseRequest
             }
         }
     }
-
-    public function toArray(): array
-    {
-        return [];
-    }
 }

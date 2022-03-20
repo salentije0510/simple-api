@@ -26,17 +26,6 @@ trait RouteTrait
         return self::make($name, $path, $handler, Route::HTTP_METHOD_DELETE);
     }
 
-    // Next three added for possible expansion
-    public static function patch(string $name, string $path, Handler $handler): Route
-    {
-        return self::make($name, $path, $handler, Route::HTTP_METHOD_PATCH);
-    }
-
-    public static function head(string $name, string $path, Handler $handler): Route
-    {
-        return self::make($name, $path, $handler, Route::HTTP_METHOD_HEAD);
-    }
-
     public static function options(string $name, string $path, Handler $handler): Route
     {
         return self::make($name, $path, $handler, Route::HTTP_METHOD_OPTIONS);

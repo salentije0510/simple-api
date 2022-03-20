@@ -36,20 +36,11 @@ class DbConnection
                 [PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION],
             );
 
-            $this->connection->beginTransaction();
             // Should be done using the migrations but in order to save time it's executed here
-            $this->connection->query('CREATE TABLE IF NOT EXISTS color (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,name VARCHAR(20) NOT NULL,hex VARCHAR(7) NOT NULL)');
+            $this->connection->query(
+                'CREATE TABLE IF NOT EXISTS colors (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name VARCHAR(20) NOT NULL, hex VARCHAR(7) NOT NULL, CONSTRAINT color_unique UNIQUE (name, hex))');
 
-            $this->connection->query('CREATE TABLE IF NOT EXISTS user (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,username VARCHAR(20) NOT NULL,token VARCHAR(100) NOT NULL)');
-
-            $username = 'sasa_p';
-            $password = password_hash('Test123!', PASSWORD_DEFAULT);
-
-            $query = $this->connection->prepare('INSERT INTO user(username, token) VALUES (:username, :password)');
-            $query->bindParam('username', $username);
-            $query->bindParam('password', $password);
-
-            $query->execute();
+            $this->connection->query('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, username VARCHAR(20) NOT NULL, token VARCHAR(100) NOT NULL, CONSTRAINT username_unique UNIQUE (username))');
         } catch (PDOException $e) {
 
             throw new \Exception(sprintf('Database error: %s', $e->getMessage()));
