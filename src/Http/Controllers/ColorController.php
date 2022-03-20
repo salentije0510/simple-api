@@ -9,7 +9,6 @@ use Frontify\ColorApi\Http\Requests\Color\GetColorRequest;
 use Frontify\ColorApi\Http\Requests\Color\GetColorsRequest;
 use Frontify\ColorApi\Http\Requests\Color\SaveColorRequest;
 use Frontify\ColorApi\Http\Requests\Color\UpdateColorRequest;
-use Sunrise\Http\Message\Request;
 
 class ColorController
 {

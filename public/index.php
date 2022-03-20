@@ -2,16 +2,13 @@
 
 /* (c) Copyright Frontify Ltd., all rights reserved. */
 
-use Frontify\ColorApi\Http\Routing\Router;
-use Frontify\ColorApi\Http\Routing\UrlMaker;
-use Sunrise\Http\ServerRequest\ServerRequestFactory;
 
-require_once __DIR__ . '/../vendor/autoload.php';
-
+require __DIR__ . "/bootstrap.php";
 $routes = require_once __DIR__ . '/../routes/api/routes.php';
 
-$request = ServerRequestFactory::fromGlobals();
-header('Content-Type: application/json');
-$urlMaker = new UrlMaker($routes);
+$request = Sunrise\Http\ServerRequest\ServerRequestFactory::fromGlobals();
 
-return (new Router($urlMaker, $routes))->run($request);
+$router = new Frontify\ColorApi\Http\Routing\Router($routes);
+$urlMaker = new Frontify\ColorApi\Http\Routing\UrlMaker($router->getRoutes());
+
+return $router->run($request);

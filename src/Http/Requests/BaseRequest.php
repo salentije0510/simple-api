@@ -6,7 +6,7 @@ namespace Frontify\ColorApi\Http\Requests;
 
 class BaseRequest
 {
-    private $required;
+    private array $required;
 
     public function __construct(array $requiredFields = [])
     {

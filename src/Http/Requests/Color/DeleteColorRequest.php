@@ -8,10 +8,9 @@ use Frontify\ColorApi\Http\Requests\BaseRequest;
 
 class DeleteColorRequest extends BaseRequest
 {
-    protected static $required = ['id'];
+    protected static array $required = ['id'];
 
-    /** @var int */
-    private $id;
+    private int $id;
 
     public function __construct(array $parameters)
     {

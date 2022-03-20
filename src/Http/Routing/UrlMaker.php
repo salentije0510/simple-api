@@ -4,16 +4,13 @@ declare(strict_types=1);
 
 namespace Frontify\ColorApi\Http\Routing;
 
-use ArrayAccess;
+use ArrayObject;
 
 class UrlMaker
 {
-    /**
-     * @var ArrayAccess
-     */
-    private $routes;
+    private ArrayObject $routes;
 
-    public function __construct(array $routes)
+    public function __construct(ArrayObject $routes)
     {
         $this->routes = $routes;
     }

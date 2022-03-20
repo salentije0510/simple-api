@@ -11,16 +11,18 @@ class GetColorsRequest extends BaseRequest
     private const FILTER_NAME = 'name';
     private const FILTER_HEX = 'hex';
 
-    private $allowedFilters = [
+    private array $allowedFilters = [
         self::FILTER_NAME,
         self::FILTER_HEX,
     ];
 
     /** @var array<string, string> */
-    private $filters;
+    private array $filters;
 
     public function __construct(array $parameters)
     {
+        parent::__construct([]);
+
         foreach ($parameters as $parameter => $value) {
             if (\array_key_exists($parameter, $this->allowedFilters)) {
                 $this->filters[$parameter] = $value;

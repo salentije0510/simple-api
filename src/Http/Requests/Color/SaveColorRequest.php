@@ -8,11 +8,9 @@ use Frontify\ColorApi\Http\Requests\BaseRequest;
 
 class SaveColorRequest extends BaseRequest
 {
-    /** @var string */
-    private $name;
+    private string $name;
 
-    /** @var  string */
-    private $hex;
+    private string $hex;
 
     /**
      * @throws \Exception

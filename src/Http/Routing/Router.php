@@ -4,31 +4,23 @@ declare(strict_types=1);
 
 namespace Frontify\ColorApi\Http\Routing;
 
-use Frontify\ColorApi\Http\Controllers\ColorController;
+use ArrayObject;
 use Frontify\ColorApi\Http\Requests\RequestFactory;
 use Psr\Http\Message\ServerRequestInterface;
 
 class Router
 {
-    /**
-     * @var \ArrayObject<Route>
-     */
-    private $routes;
+    private ArrayObject $routes;
 
-    /**
-     * @var UrlMaker
-     */
-    private $urlMaker;
+    private UrlMaker $urlMaker;
 
-    public function __construct(UrlMaker $urlMaker, array $routes = [])
+    public function __construct(array $routes = [])
     {
         $this->routes = new \ArrayObject();
 
         foreach ($routes as $route) {
             $this->add($route);
         }
-
-        $this->urlMaker = $urlMaker;
     }
 
     private function add(Route $route): void
@@ -82,5 +74,15 @@ class Router
         $request = RequestFactory::make($controllerClass, $methodName, $pathVariables, $request);
 
         return $controller->$methodName($request);
+    }
+
+    public function getRoutes(): ArrayObject
+    {
+        return $this->routes;
+    }
+
+    public function setUrlMaker(UrlMaker $urlMaker): void
+    {
+        $this->urlMaker = $urlMaker;
     }
 }

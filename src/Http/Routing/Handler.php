@@ -6,20 +6,15 @@ namespace Frontify\ColorApi\Http\Routing;
 
 class Handler
 {
-    /** @var string */
-    private $controllerClass;
+    private string $controllerClass;
 
-    /** @var string */
-    private $method;
-
-    public function __construct(string $controllerClass, string $method)
+    public function __construct(string $controllerClass, private string $method)
     {
         if (!\is_callable($controllerClass, true)) {
             throw new \Exception(sprintf('Invalid class name = %s', $controllerClass));
         }
 
         $this->controllerClass = $controllerClass;
-        $this->method = $method;
     }
 
     public function getControllerClass(): string

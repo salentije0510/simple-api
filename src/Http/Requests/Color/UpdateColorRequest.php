@@ -8,14 +8,11 @@ use Frontify\ColorApi\Http\Requests\BaseRequest;
 
 class UpdateColorRequest extends BaseRequest
 {
-    /** @var int */
-    private $id;
+    private int $id;
 
-    /** @var string */
-    private $name;
+    private string $name;
 
-    /** @var string */
-    private $hex;
+    private string $hex;
 
     public function __construct(array $parameters)
     {

@@ -8,8 +8,7 @@ use Frontify\ColorApi\Http\Requests\BaseRequest;
 
 class GetColorRequest extends BaseRequest
 {
-    /** @var int  */
-    private $id;
+    private int $id;
 
     /**
      * @throws \Exception

@@ -16,27 +16,15 @@ class Route
     public const HTTP_METHOD_HEAD = 'HEAD';
     public const HTTP_METHOD_OPTIONS = 'OPTIONS';
 
-    /** @var string  */
-    private $name;
-
-    /** @var string  */
-    private $path;
-
-    /** @var Handler */
-    private $handler;
-
-    /** @var string  */
-    private $method;
-
     /** @var array<string, mixed>  */
-    private $attributes = [];
+    private array $attributes = [];
 
-    public function __construct(string $name, string $path, Handler $handler, string $method)
-    {
-        $this->name = $name;
-        $this->path = $path;
-        $this->handler = $handler;
-        $this->method = $method;
+    public function __construct(
+        private string $name,
+        private string $path,
+        private Handler $handler,
+        private string $method
+    ) {
     }
 
     public function match(string $path, string $method): bool
