@@ -11,7 +11,7 @@ trait RouteTrait
         return self::make($name, $path, $handler, Route::HTTP_METHOD_GET);
     }
 
-    public static function post(string $name, string $path, Handler  $handler): Route
+    public static function post(string $name, string $path, Handler $handler): Route
     {
         return self::make($name, $path, $handler, Route::HTTP_METHOD_POST);
     }

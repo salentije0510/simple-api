@@ -12,7 +12,6 @@ use Frontify\ColorApi\Http\Requests\Color\GetColorRequest;
 use Frontify\ColorApi\Http\Requests\Color\GetColorsRequest;
 use Frontify\ColorApi\Http\Requests\Color\SaveColorRequest;
 use Frontify\ColorApi\Http\Requests\Color\UpdateColorRequest;
-use Frontify\ColorApi\Http\Requests\RequestInterface;
 use JsonException;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -25,7 +24,7 @@ class RequestFactory
         string $controllerClass,
         string $methodName,
         array $pathVariables,
-        ServerRequestInterface $resolvedRequest
+        ServerRequestInterface $resolvedRequest,
     ): ?BaseRequest {
         $requestBody = self::encodeBody($resolvedRequest);
 
@@ -37,7 +36,7 @@ class RequestFactory
                 'update' => new UpdateColorRequest(array_merge($pathVariables, $requestBody)),
                 'index' => new GetColorsRequest($pathVariables),
                 'delete' => new DeleteColorRequest($pathVariables),
-                default => new GetColorRequest($pathVariables),
+                default => new GetColorRequest($pathVariables)
             };
         }
 
@@ -55,12 +54,7 @@ class RequestFactory
         $stripedBody = trim(preg_replace('/\s\s+/', '', $rawBody));
 
         try {
-            $requestBody = json_decode(
-                $stripedBody,
-                true,
-                512,
-                JSON_THROW_ON_ERROR
-            );
+            $requestBody = json_decode($stripedBody, true, 512, JSON_THROW_ON_ERROR);
         } catch (JsonException $e) {
             throw new Exception('Invalid request body provided.');
         }

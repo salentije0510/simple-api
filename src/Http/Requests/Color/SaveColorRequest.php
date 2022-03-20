@@ -38,7 +38,7 @@ class SaveColorRequest extends BaseRequest
     {
         return [
             'name' => $this->name,
-            'hex' => $this->hex
+            'hex' => $this->hex,
         ];
     }
 }

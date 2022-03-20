@@ -8,12 +8,13 @@
   },
   "scripts": {
     "start": "php -S localhost:8080 -t public/",
-    "test": "php ./vendor/bin/phpunit --colors=always tests/"
+    "test": "php ./vendor/bin/phpunit --colors=always tests/",
+    "prettier": "prettier --/ --php-version=8.0 -c"
   },
   "author": "",
   "license": "UNLICENSED",
   "devDependencies": {
-    "@prettier/plugin-php": "^0.17.3",
-    "prettier": "^2.3.2"
+    "@prettier/plugin-php": "^0.17.6",
+    "prettier": "^2.6.0"
   }
 }

@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace Frontify\ColorApi;
 
 use PDO;
@@ -20,13 +19,7 @@ class DbConnection
     private function __construct()
     {
         $dbName = getenv('DATABASE_NAME');
-        $dsn = sprintf(
-            '%s:%s\%s\%s.db',
-            getenv('DATABASE_ENGINE'),
-            PROJECT_ROOT_PATH,
-            getenv('DATABASE_DIR'),
-            $dbName,
-        );
+        $dsn = sprintf('%s:%s\%s\%s.db', getenv('DATABASE_ENGINE'), PROJECT_ROOT_PATH, getenv('DATABASE_DIR'), $dbName);
 
         try {
             $this->connection = new PDO(
@@ -38,11 +31,13 @@ class DbConnection
 
             // Should be done using the migrations but in order to save time it's executed here
             $this->connection->query(
-                'CREATE TABLE IF NOT EXISTS colors (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name VARCHAR(20) NOT NULL, hex VARCHAR(7) NOT NULL, CONSTRAINT color_unique UNIQUE (name, hex))');
+                'CREATE TABLE IF NOT EXISTS colors (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name VARCHAR(20) NOT NULL, hex VARCHAR(7) NOT NULL, CONSTRAINT color_unique UNIQUE (name, hex))',
+            );
 
-            $this->connection->query('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, username VARCHAR(20) NOT NULL, token VARCHAR(100) NOT NULL, CONSTRAINT username_unique UNIQUE (username))');
+            $this->connection->query(
+                'CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, username VARCHAR(20) NOT NULL, token VARCHAR(100) NOT NULL, CONSTRAINT username_unique UNIQUE (username))',
+            );
         } catch (PDOException $e) {
-
             throw new \Exception(sprintf('Database error: %s', $e->getMessage()));
         }
     }

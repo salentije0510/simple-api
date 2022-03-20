@@ -25,11 +25,11 @@ class ColorController
             $colorEntities = $request->hasFilters()
                 ? $this->colorRepository->findBy($request->getFilters())
                 : $this->colorRepository->findAll();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return ['success' => false, 'message' => 'Something went wrong while searching for the color.'];
         }
 
-        $colors = array_map(static fn (ColorEntity $entity) => $entity->toAssocArray(), $colorEntities);
+        $colors = array_map(static fn(ColorEntity $entity) => $entity->toAssocArray(), $colorEntities);
 
         return !empty($colors)
             ? ['success' => true, 'data' => $colors]
@@ -40,7 +40,7 @@ class ColorController
     {
         try {
             $colorEntity = $this->colorRepository->find($request->getId());
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return ['success' => false, 'message' => 'Something went wrong while searching for the color.'];
         }
 
@@ -55,7 +55,7 @@ class ColorController
 
         try {
             $savedEntity = $this->colorRepository->save($colorEntity);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return ['success' => false, 'message' => 'Something went wrong while saving the color.'];
         }
 
@@ -64,6 +64,16 @@ class ColorController
 
     public function update(UpdateColorRequest $request): array
     {
+        try {
+            $colorExist = (bool) $this->colorRepository->find($request->getId());
+        } catch (Exception $e) {
+            return ['success' => false, 'message' => 'Something went wrong while updating the color.'];
+        }
+
+        if (!$colorExist) {
+            return ['success' => false, 'message' => 'Unable to update color since color does not exist.'];
+        }
+
         $colorEntity = new ColorEntity($request->getName(), $request->getHex(), $request->getId());
 
         try {

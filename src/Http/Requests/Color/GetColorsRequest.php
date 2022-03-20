@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Frontify\ColorApi\Http\Requests\Color;
 
+use Exception;
 use Frontify\ColorApi\Http\Requests\BaseRequest;
 
 class GetColorsRequest extends BaseRequest
@@ -11,10 +12,7 @@ class GetColorsRequest extends BaseRequest
     private const FILTER_NAME = 'name';
     private const FILTER_HEX = 'hex';
 
-    private array $allowedFilters = [
-        self::FILTER_NAME,
-        self::FILTER_HEX,
-    ];
+    private array $allowedFilters = [self::FILTER_NAME, self::FILTER_HEX];
 
     /** @var array<string, string> */
     private array $filters;
@@ -44,8 +42,8 @@ class GetColorsRequest extends BaseRequest
 
     public function getFilter(string $filter): string
     {
-        if (!\in_array($filter, $this->filters)) {
-            throw new \Exception(sprintf('Filter = %s not supported', $filter));
+        if (!\in_array($filter, $this->filters, true)) {
+            throw new Exception(sprintf('Filter = %s not supported', $filter));
         }
 
         return $this->filters[$filter];

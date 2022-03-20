@@ -17,7 +17,7 @@ class Router
 
     public function __construct(array $routes = [])
     {
-        $this->routes = new \ArrayObject();
+        $this->routes = new ArrayObject();
 
         foreach ($routes as $route) {
             $this->add($route);
@@ -43,10 +43,7 @@ class Router
             return $route;
         }
 
-        throw new \Exception(
-            sprintf('Route with the name = %s not found', $serverRequest->getMethod()),
-            404
-        );
+        throw new \Exception(sprintf('Route with the name = %s not found', $serverRequest->getMethod()), 404);
     }
 
     public function generateUri(string $name, array $parameters = []): string
@@ -63,10 +60,9 @@ class Router
         $controllerClass = $route->getHandler()->getControllerClass();
         $methodName = $route->getHandler()->getMethod();
 
-        if (!class_exists($controllerClass) ||
-            !method_exists($controllerClass, $methodName)) {
+        if (!class_exists($controllerClass) || !method_exists($controllerClass, $methodName)) {
             throw new \Exception(
-                sprintf('Unable to map route to the %s class and method %s', $controllerClass, $methodName)
+                sprintf('Unable to map route to the %s class and method %s', $controllerClass, $methodName),
             );
         }
 

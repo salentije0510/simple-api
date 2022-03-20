@@ -18,7 +18,7 @@ class GetColorRequest extends BaseRequest
         parent::__construct(['id']);
 
         $this->validate($params);
-        $this->id = (int)$params['id'];
+        $this->id = (int) $params['id'];
     }
 
     public function getId(): int
@@ -29,7 +29,7 @@ class GetColorRequest extends BaseRequest
     public function toArray(): array
     {
         return [
-            'id' => $this->id
+            'id' => $this->id,
         ];
     }
 }

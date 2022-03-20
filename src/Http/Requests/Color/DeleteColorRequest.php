@@ -17,7 +17,7 @@ class DeleteColorRequest extends BaseRequest
         parent::__construct(['id']);
         $this->validate($parameters);
 
-        $this->id = (int)$parameters['id'];
+        $this->id = (int) $parameters['id'];
     }
 
     public function getId(): int

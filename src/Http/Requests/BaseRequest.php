@@ -21,9 +21,7 @@ class BaseRequest
         // In order to save time values have not been validated
         foreach ($this->required as $requiredParam) {
             if (!\array_key_exists($requiredParam, $parameters)) {
-                throw new \Exception(
-                    sprintf('Required param missing from the request body: %s', $requiredParam)
-                );
+                throw new \Exception(sprintf('Required param missing from the request body: %s', $requiredParam));
             }
         }
     }

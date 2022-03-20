@@ -21,7 +21,7 @@ class Route
         private string $name,
         private string $path,
         private Handler $handler,
-        private string $method
+        private string $method,
     ) {
     }
 
@@ -34,19 +34,20 @@ class Route
             $regex = str_replace($variableName, '(?P<' . $varName . '>[^/]++)', $regex);
         }
 
-        if ($method !== $this->method ||
-            !preg_match(
-                sprintf('#^%s$#sD', $regex),
-                sprintf('/%s', rtrim(ltrim(trim($path), '/'), '/')),
-                $matches
-            )
+        if (
+            $method !== $this->method ||
+            !preg_match(sprintf('#^%s$#sD', $regex), sprintf('/%s', rtrim(ltrim(trim($path), '/'), '/')), $matches)
         ) {
             return false;
         }
 
-        $values = array_filter($matches, static function ($key) {
-            return \is_string($key);
-        }, ARRAY_FILTER_USE_KEY);
+        $values = array_filter(
+            $matches,
+            static function ($key) {
+                return \is_string($key);
+            },
+            ARRAY_FILTER_USE_KEY,
+        );
 
         foreach ($values as $key => $value) {
             $this->attributes[$key] = $value;

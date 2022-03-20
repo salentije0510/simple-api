@@ -19,7 +19,7 @@ class UpdateColorRequest extends BaseRequest
         parent::__construct(['id', 'name', 'hex']);
         $this->validate($parameters);
 
-        $this->id = (int)$parameters['id'];
+        $this->id = (int) $parameters['id'];
         $this->name = $parameters['name'];
         $this->hex = $parameters['hex'];
     }
@@ -44,7 +44,7 @@ class UpdateColorRequest extends BaseRequest
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'hex' => $this->hex
+            'hex' => $this->hex,
         ];
     }
 }

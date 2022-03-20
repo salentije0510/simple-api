@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Frontify\ColorApi\Http\Routing;
 
+use Exception;
+
 class Handler
 {
     private string $controllerClass;
@@ -11,7 +13,7 @@ class Handler
     public function __construct(string $controllerClass, private string $method)
     {
         if (!\is_callable($controllerClass, true)) {
-            throw new \Exception(sprintf('Invalid class name = %s', $controllerClass));
+            throw new Exception(sprintf('Invalid class name = %s', $controllerClass));
         }
 
         $this->controllerClass = $controllerClass;

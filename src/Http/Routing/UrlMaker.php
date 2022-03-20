@@ -18,9 +18,7 @@ class UrlMaker
     public function generate(string $name, array $parameters = []): string
     {
         if (!$this->routes->offsetExists($name)) {
-            throw new \InvalidArgumentException(
-                sprintf('Unknown route %s', $name)
-            );
+            throw new \InvalidArgumentException(sprintf('Unknown route %s', $name));
         }
 
         /** @var Route $route */
@@ -28,11 +26,7 @@ class UrlMaker
 
         if ($parameters === [] && $route->hasAttributes() === true) {
             throw new \InvalidArgumentException(
-                sprintf(
-                    '%s route requires following parameters: %s',
-                    $name,
-                    implode(',', $route->getPathVariables())
-                )
+                sprintf('%s route requires following parameters: %s', $name, implode(',', $route->getPathVariables())),
             );
         }
 
@@ -44,12 +38,11 @@ class UrlMaker
         $uri = $route->getPath();
 
         foreach ($route->getPathVariables() as $variable) {
-
             $variableName = trim($variable, '{\}');
 
             if (!\array_key_exists($variableName, $parameters)) {
                 throw new \InvalidArgumentException(
-                    sprintf('%s not found in parameters to generate url', $variableName)
+                    sprintf('%s not found in parameters to generate url', $variableName),
                 );
             }
 

@@ -23,14 +23,15 @@ class ColorRepository extends BaseRepository implements EntityRepositoryInterfac
             throw new \Exception(sprintf('Database error: %s', $e->getMessage()));
         }
 
-        return $queryResult ? new ColorEntity($queryResult['name'], $queryResult['hex'], (int)$queryResult['id']) : null;
+        return $queryResult
+            ? new ColorEntity($queryResult['name'], $queryResult['hex'], (int) $queryResult['id'])
+            : null;
     }
 
     public function findBy(?array $filters): array
     {
-        if ($filters) {
-            // TODO: apply filters to the query
-        }
+        return [];
+        // TODO: apply filters to the query
     }
 
     /**
@@ -51,7 +52,7 @@ class ColorRepository extends BaseRepository implements EntityRepositoryInterfac
             throw new \Exception(sprintf('Database error: %s', $e->getMessage()));
         }
 
-        return new ColorEntity($entity->getName(), $entity->getHex(), $id ? (int)$id : null);
+        return new ColorEntity($entity->getName(), $entity->getHex(), $id ? (int) $id : null);
     }
 
     /**
@@ -100,8 +101,8 @@ class ColorRepository extends BaseRepository implements EntityRepositoryInterfac
         }
 
         return array_map(
-            static fn (array $row) => new ColorEntity($row['name'], $row['hex'], (int)$row['id']),
-            $queryResult
+            static fn(array $row) => new ColorEntity($row['name'], $row['hex'], (int) $row['id']),
+            $queryResult,
         );
     }
 }
