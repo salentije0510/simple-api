@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Frontify\ColorApi\Http\Controllers;
+namespace Frontify\ColorApi\Controllers;
 
 use Exception;
-use Frontify\ColorApi\Entity\ColorEntity;
-use Frontify\ColorApi\Http\Requests\Color\DeleteColorRequest;
-use Frontify\ColorApi\Http\Requests\Color\GetColorRequest;
-use Frontify\ColorApi\Http\Requests\Color\GetColorsRequest;
-use Frontify\ColorApi\Http\Requests\Color\SaveColorRequest;
-use Frontify\ColorApi\Http\Requests\Color\UpdateColorRequest;
-use Frontify\ColorApi\Repository\ColorRepository;
+use Frontify\ColorApi\Entities\ColorEntity;
+use Frontify\ColorApi\Repositories\ColorRepository;
+use Frontify\ColorApi\Requests\Color\DeleteColorRequest;
+use Frontify\ColorApi\Requests\Color\GetColorRequest;
+use Frontify\ColorApi\Requests\Color\GetColorsRequest;
+use Frontify\ColorApi\Requests\Color\SaveColorRequest;
+use Frontify\ColorApi\Requests\Color\UpdateColorRequest;
 
 class ColorController
 {

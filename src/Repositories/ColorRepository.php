@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Frontify\ColorApi\Repository;
+namespace Frontify\ColorApi\Repositories;
 
-use Frontify\ColorApi\Entity\ColorEntity;
-use Frontify\ColorApi\Entity\EntityInterface;
+use Frontify\ColorApi\Entities\ColorEntity;
+use Frontify\ColorApi\Entities\EntityInterface;
 
 class ColorRepository extends BaseRepository implements EntityRepositoryInterface
 {

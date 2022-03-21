@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Frontify\ColorApi\Factories;
 
+use Frontify\ColorApi\Controllers\ColorController;
 use Frontify\ColorApi\DbConnection;
-use Frontify\ColorApi\Http\Controllers\ColorController;
-use Frontify\ColorApi\Repository\BaseRepository;
-use Frontify\ColorApi\Repository\ColorRepository;
+use Frontify\ColorApi\Repositories\BaseRepository;
+use Frontify\ColorApi\Repositories\ColorRepository;
 
 class RepositoryFactory
 {

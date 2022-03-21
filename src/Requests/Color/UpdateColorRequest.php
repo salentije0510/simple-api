@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Frontify\ColorApi\Http\Requests\Color;
+namespace Frontify\ColorApi\Requests\Color;
 
-use Frontify\ColorApi\Http\Requests\BaseRequest;
+use Frontify\ColorApi\Requests\BaseRequest;
 
 class UpdateColorRequest extends BaseRequest
 {

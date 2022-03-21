@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Frontify\ColorApi\Entity;
+namespace Frontify\ColorApi\Entities;
 
 interface EntityInterface
 {

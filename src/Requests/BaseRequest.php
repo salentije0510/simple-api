@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Frontify\ColorApi\Http\Requests;
+namespace Frontify\ColorApi\Requests;
 
 class BaseRequest
 {

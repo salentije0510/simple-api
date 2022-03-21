@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Frontify\ColorApi\Http\Requests\Color;
+namespace Frontify\ColorApi\Requests\Color;
 
 use Exception;
-use Frontify\ColorApi\Http\Requests\BaseRequest;
+use Frontify\ColorApi\Requests\BaseRequest;
 
 class GetColorsRequest extends BaseRequest
 {

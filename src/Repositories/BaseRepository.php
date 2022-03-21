@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Frontify\ColorApi\Repository;
+namespace Frontify\ColorApi\Repositories;
 
 use Frontify\ColorApi\DbConnection;
 use PDO;

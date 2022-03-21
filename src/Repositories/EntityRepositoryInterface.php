@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Frontify\ColorApi\Repository;
+namespace Frontify\ColorApi\Repositories;
 
-use Frontify\ColorApi\Entity\EntityInterface;
+use Frontify\ColorApi\Entities\EntityInterface;
 
 interface EntityRepositoryInterface
 {

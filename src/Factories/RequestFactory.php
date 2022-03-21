@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Frontify\ColorApi\Factories;
 
 use Exception;
-use Frontify\ColorApi\Http\Controllers\ColorController;
-use Frontify\ColorApi\Http\Requests\BaseRequest;
-use Frontify\ColorApi\Http\Requests\Color\DeleteColorRequest;
-use Frontify\ColorApi\Http\Requests\Color\GetColorRequest;
-use Frontify\ColorApi\Http\Requests\Color\GetColorsRequest;
-use Frontify\ColorApi\Http\Requests\Color\SaveColorRequest;
-use Frontify\ColorApi\Http\Requests\Color\UpdateColorRequest;
+use Frontify\ColorApi\Controllers\ColorController;
+use Frontify\ColorApi\Requests\BaseRequest;
+use Frontify\ColorApi\Requests\Color\DeleteColorRequest;
+use Frontify\ColorApi\Requests\Color\GetColorRequest;
+use Frontify\ColorApi\Requests\Color\GetColorsRequest;
+use Frontify\ColorApi\Requests\Color\SaveColorRequest;
+use Frontify\ColorApi\Requests\Color\UpdateColorRequest;
 use JsonException;
 use Psr\Http\Message\ServerRequestInterface;
 

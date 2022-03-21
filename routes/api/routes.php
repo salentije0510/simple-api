@@ -1,9 +1,9 @@
 <?php
 
 // Defining the list of routes
-use Frontify\ColorApi\Http\Controllers\ColorController;
-use Frontify\ColorApi\Http\Routing\Handler;
-use Frontify\ColorApi\Http\Routing\Route;
+use Frontify\ColorApi\Controllers\ColorController;
+use Frontify\ColorApi\Routing\Handler;
+use Frontify\ColorApi\Routing\Route;
 
 return [
     Route::get('color_index', '/api/colors', new Handler(ColorController::class, 'index')),
