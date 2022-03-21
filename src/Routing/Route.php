@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Frontify\ColorApi\Routing;
 
+use Frontify\ColorApi\Exceptions\RouterException;
+
 class Route
 {
-    use RouteTrait;
-
     public const HTTP_METHOD_GET = 'GET';
     public const HTTP_METHOD_POST = 'POST';
     public const HTTP_METHOD_PUT = 'PUT';
@@ -20,9 +20,38 @@ class Route
     public function __construct(
         private string $name,
         private string $path,
-        private Handler $handler,
+        private array $handler,
         private string $method,
+        private array $options,
     ) {
+        if (!class_exists($this->handler[0]) || !method_exists($this->handler[0], $this->handler[1])) {
+            throw new RouterException(sprintf('Invalid handler provided for the route %s', $this->name));
+        }
+    }
+
+    public static function get(string $name, string $path, array $handler, array $options): Route
+    {
+        return new self($name, $path, $handler, Route::HTTP_METHOD_GET, $options);
+    }
+
+    public static function post(string $name, string $path, array $handler, array $options): Route
+    {
+        return new self($name, $path, $handler, Route::HTTP_METHOD_POST, $options);
+    }
+
+    public static function put(string $name, string $path, array $handler, array $options): Route
+    {
+        return new self($name, $path, $handler, Route::HTTP_METHOD_PUT, $options);
+    }
+
+    public static function delete(string $name, string $path, array $handler, array $options): Route
+    {
+        return new self($name, $path, $handler, Route::HTTP_METHOD_DELETE, $options);
+    }
+
+    public static function options(string $name, string $path, array $handler, array $options): Route
+    {
+        return new self($name, $path, $handler, Route::HTTP_METHOD_OPTIONS, $options);
     }
 
     public function match(string $path, string $method): bool
@@ -31,23 +60,17 @@ class Route
 
         foreach ($this->getPathVariables() as $variableName) {
             $varName = trim($variableName, '{\}');
-            $regex = str_replace($variableName, '(?P<' . $varName . '>[^/]++)', $regex);
+            $regex = str_replace($variableName, '(?P<' . $varName . '>[^/]+)', $regex);
         }
 
         if (
             $method !== $this->method ||
-            !preg_match(sprintf('#^%s$#sD', $regex), sprintf('/%s', rtrim(ltrim(trim($path), '/'), '/')), $matches)
+            !preg_match(sprintf('#^%s$#sD', $regex), sprintf('/%s', trim($path, '/')), $matches)
         ) {
             return false;
         }
 
-        $values = array_filter(
-            $matches,
-            static function ($key) {
-                return \is_string($key);
-            },
-            ARRAY_FILTER_USE_KEY,
-        );
+        $values = array_filter($matches, static fn($key) => \is_string($key), ARRAY_FILTER_USE_KEY);
 
         foreach ($values as $key => $value) {
             $this->attributes[$key] = $value;
@@ -73,7 +96,7 @@ class Route
         return $this->path;
     }
 
-    public function getHandler(): Handler
+    public function getHandler(): array
     {
         return $this->handler;
     }
@@ -94,5 +117,14 @@ class Route
     public function getAttributes(): array
     {
         return $this->attributes;
+    }
+
+    /**
+     * @return array<string, bool>
+     * Can be used for passing route middlewares. For now only to check should the user by authenticated for the route
+     */
+    public function getOptions(): array
+    {
+        return $this->options;
     }
 }

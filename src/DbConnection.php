@@ -9,17 +9,22 @@ use PDOException;
 
 class DbConnection
 {
-    private static ?self $instance = null;
-
+    //Moved away from the singleton approach since having db connection like that prevents further abstractions
     private PDO $connection;
 
     /**
      * @throws \Exception
      */
-    private function __construct()
+    public function __construct()
     {
         $dbName = getenv('DATABASE_NAME');
-        $dsn = sprintf('%s:%s\%s\%s.db', getenv('DATABASE_ENGINE'), PROJECT_ROOT_PATH, getenv('DATABASE_DIR'), $dbName);
+        $dsn = sprintf(
+            '%s:%s\%s\%s.db',
+            getenv('DATABASE_ENGINE'),
+            Application::PROJECT_ROOT_PATH,
+            getenv('DATABASE_DIR'),
+            $dbName,
+        );
 
         try {
             $this->connection = new PDO(
@@ -40,22 +45,6 @@ class DbConnection
         } catch (PDOException $e) {
             throw new \Exception(sprintf('Database error: %s', $e->getMessage()));
         }
-    }
-
-    /**
-     * @throws \Exception
-     */
-    public static function getInstance(): self
-    {
-        if (!self::$instance) {
-            self::$instance = new self();
-        }
-
-        return self::$instance;
-    }
-
-    private function __clone()
-    {
     }
 
     public function getConnection(): PDO

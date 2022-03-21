@@ -14,7 +14,7 @@ class RepositoryFactory
     public static function make(string $controllerClass): ?BaseRepository
     {
         return match ($controllerClass) {
-            ColorController::class => new ColorRepository(DbConnection::getInstance()),
+            ColorController::class => new ColorRepository(new DbConnection()),
             default => null
         };
     }

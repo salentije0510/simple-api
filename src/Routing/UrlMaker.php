@@ -10,6 +10,17 @@ class UrlMaker
 {
     private ArrayObject $routes;
 
+    public static function make(array $routeList): self
+    {
+        $routes = new ArrayObject();
+
+        foreach ($routeList as $route) {
+            $routes->offsetSet($route->getName(), $route);
+        }
+
+        return new self($routes);
+    }
+
     public function __construct(ArrayObject $routes)
     {
         $this->routes = $routes;

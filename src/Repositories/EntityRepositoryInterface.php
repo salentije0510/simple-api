@@ -11,7 +11,7 @@ interface EntityRepositoryInterface
     public function find(int $id): ?EntityInterface;
 
     /**
-     * @return array<int, EntityInterface>
+     * @return array<EntityInterface>
      */
     public function findBy(array $filters): array;
 

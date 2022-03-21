@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace Frontify\ColorApi\Routing;
 
 use ArrayObject;
-use Frontify\ColorApi\Factories\RepositoryFactory;
-use Frontify\ColorApi\Factories\RequestFactory;
+use Frontify\ColorApi\Exceptions\RouterException;
 use Psr\Http\Message\ServerRequestInterface;
 
 class Router
@@ -15,22 +14,23 @@ class Router
 
     private UrlMaker $urlMaker;
 
+    public static function make(array $routes): self
+    {
+        return new self($routes);
+    }
+
     public function __construct(array $routes = [])
     {
+        //Could create class RouteCollection instead of using build in ArrayObject class
         $this->routes = new ArrayObject();
 
         foreach ($routes as $route) {
-            $this->add($route);
+            $this->routes->offsetSet($route->getName(), $route);
         }
     }
 
-    private function add(Route $route): void
-    {
-        $this->routes->offsetSet($route->getName(), $route);
-    }
-
     /**
-     * @throws \Exception
+     * @throws RouterException
      */
     public function matchFromPath(ServerRequestInterface $serverRequest): Route
     {
@@ -43,37 +43,12 @@ class Router
             return $route;
         }
 
-        throw new \Exception(sprintf('Route with the name = %s not found', $serverRequest->getMethod()), 404);
+        throw new RouterException(sprintf('Route with the name = %s not found', $serverRequest->getMethod()));
     }
 
     public function generateUri(string $name, array $parameters = []): string
     {
         return $this->urlMaker->generate($name, $parameters);
-    }
-
-    public function run(ServerRequestInterface $request): array
-    {
-        $route = $this->matchFromPath($request);
-
-        $pathVariables = $route->getAttributes();
-
-        $controllerClass = $route->getHandler()->getControllerClass();
-        $methodName = $route->getHandler()->getMethod();
-
-        if (!class_exists($controllerClass) || !method_exists($controllerClass, $methodName)) {
-            throw new \Exception(
-                sprintf('Unable to map route to the %s class and method %s', $controllerClass, $methodName),
-            );
-        }
-
-        // For now simple and stupid. It can be improved by adding DI container to handle DI to controller class
-        $repository = RepositoryFactory::make($controllerClass);
-
-        $controller = new $controllerClass($repository);
-
-        $request = RequestFactory::make($controllerClass, $methodName, $pathVariables, $request);
-
-        return $controller->$methodName($request);
     }
 
     public function getRoutes(): ArrayObject

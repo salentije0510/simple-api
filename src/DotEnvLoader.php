@@ -8,30 +8,21 @@ use Exception;
 
 class DotEnvLoader
 {
-    private string $path;
+    private const ENV_FILE = '.env';
 
     /**
      * @throws Exception
      */
-    public function __construct(string $path)
+    public static function load(): void
     {
-        if (!file_exists($path)) {
-            throw new Exception(sprintf('File = %s does not exist', $path));
+        $envFilePath = sprintf('%s%s', Application::PROJECT_ROOT_PATH, self::ENV_FILE);
+
+        if (!is_readable($envFilePath)) {
+            throw new Exception(sprintf('File %s is not readable', $envFilePath));
         }
 
-        $this->path = $path;
-    }
+        $lines = file($envFilePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
-    /**
-     * @throws Exception
-     */
-    public function load(): void
-    {
-        if (!is_readable($this->path)) {
-            throw new Exception(sprintf('%s file is not readable', $this->path));
-        }
-
-        $lines = file($this->path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
         foreach ($lines as $line) {
             if (str_starts_with(trim($line), '#')) {
                 continue;
@@ -44,6 +35,7 @@ class DotEnvLoader
             if (\array_key_exists($name, $_ENV)) {
                 continue;
             }
+
             putenv(sprintf('%s=%s', $name, $value));
             $_ENV[$name] = $value;
         }

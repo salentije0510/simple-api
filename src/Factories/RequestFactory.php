@@ -24,9 +24,11 @@ class RequestFactory
         string $controllerClass,
         string $methodName,
         array $pathVariables,
-        ServerRequestInterface $resolvedRequest,
+        ServerRequestInterface $request,
     ): ?BaseRequest {
-        $requestBody = self::encodeBody($resolvedRequest);
+        $resolvedRequest = null;
+
+        $requestBody = self::encodeBody($request);
 
         // In case of multiple controllers we can add additional dedicated controller factory classes and use this one
         // to switch between those classes based on the controller class. For now, we are going simple.

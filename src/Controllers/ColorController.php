@@ -70,14 +70,19 @@ class ColorController
             return ['success' => false, 'message' => 'Something went wrong while updating the color.'];
         }
 
-        if (!$colorExist) {
-            return ['success' => false, 'message' => 'Unable to update color since color does not exist.'];
-        }
-
-        $colorEntity = new ColorEntity($request->getName(), $request->getHex(), $request->getId());
-
         try {
-            $this->colorRepository->update($colorEntity);
+            if ($colorExist) {
+                $colorEntity = new ColorEntity($request->getName(), $request->getHex(), $request->getId());
+                $this->colorRepository->update($colorEntity);
+            } else {
+                $colorEntity = $this->colorRepository->save(
+                    new ColorEntity(
+                        $request->getName(),
+                        $request->getHex(),
+                        $request->getId()
+                    )
+                );
+            }
         } catch (Exception $e) {
             return ['success' => false, 'message' => 'Something went wrong while updating the color.'];
         }
