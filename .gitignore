@@ -13,3 +13,4 @@ npm-debug.log
 .php_cs.cache
 .prettierrc
 .env
+database/colors_api.db
