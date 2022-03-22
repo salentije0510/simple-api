@@ -60,17 +60,19 @@ class Route
 
         foreach ($this->getPathVariables() as $variableName) {
             $varName = trim($variableName, '{\}');
+            // Building the named regular expression group based on the stripped path variables
             $regex = str_replace($variableName, '(?P<' . $varName . '>[^/]+)', $regex);
         }
 
         if (
             $method !== $this->method ||
+            // checking if the regex build based on path variables matches path used to send request
             !preg_match(sprintf('#^%s$#sD', $regex), sprintf('/%s', trim($path, '/')), $matches)
         ) {
             return false;
         }
 
-        $values = array_filter($matches, static fn($key) => \is_string($key), ARRAY_FILTER_USE_KEY);
+        $values = array_filter($matches, static fn ($key) => \is_string($key), ARRAY_FILTER_USE_KEY);
 
         foreach ($values as $key => $value) {
             $this->attributes[$key] = $value;
@@ -81,6 +83,7 @@ class Route
 
     public function getPathVariables(): array
     {
+        // Matches substrings in path that are between slashes inside the curly braces
         preg_match_all('/{[^}]*}/', $this->path, $matches);
 
         return reset($matches) ?? [];
